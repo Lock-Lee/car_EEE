@@ -23,23 +23,6 @@ double getC() {
   return c;
 }
 
-void wild_speed() {
-
- 
- pulses++;
-  if (millis() - timeold >= 1000) {
-    //Don't process interrupts during calculations
-    detachInterrupt(0);
-    rpm = (60 * 1000 / pulsesperturn ) / (millis() - timeold) * pulses;
-    timeold = millis();
-    pulses = 0;
-  }  
-   Serial.print("Analog Value =");
-  Serial.println(rpm);
- 
-  
-  
-}
 float DHThum() {
   float h = dht.readHumidity();
   // Read temperature as Celsius (the default)

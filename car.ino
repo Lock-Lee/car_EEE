@@ -33,7 +33,11 @@ volatile byte pulses; // number of pulses
 unsigned long timeold;
 unsigned int rpm;
 unsigned int pulsesperturn = 12;
-const byte interruptPin = D6;
+int interruptPin = D6;
+
+long previousMillis = 0;
+long interval = 2000;
+int a = 60;
 
 unsigned long delayTime;
 
@@ -92,7 +96,7 @@ void setup() {
   pinMode(Motor2, OUTPUT);
   pinMode(Motor3, OUTPUT);
   pinMode(Motor4, OUTPUT);
-  attachInterrupt(digitalPinToInterrupt(interruptPin), wild_speed, RISING );
+  
   Serial.begin(9600);
   Serial.println("Starting...");
   if (WiFi.begin(ssid, password)) {
@@ -118,6 +122,24 @@ void loop() {
   float li =  Ultrasonic();
   float Amp = sensorAmp();
   float hum =  DHThum();
+  unsigned long currentMillis = millis();
+
+if (currentMillis - previousMillis > interval) {
+ previousMillis = currentMillis;
+if(digitalWrite(interruptPin)==1){
+ pulses++;
+  if (millis() - timeold >= 1000) {
+    rpm = (60 * 1000 / pulsesperturn ) / (millis() - timeold) * pulses;
+    timeold = millis();
+    pulses = 0;
+  } 
+}
+
+  
+}else {
+ Serial.print("Analog Value =");
+  Serial.println(rpm);
+}
    wild_speed();
   if (microgear.connected()) {
 
