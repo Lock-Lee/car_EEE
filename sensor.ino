@@ -1,26 +1,19 @@
 
 
-float sensorAmp () {
-  double c = getCA();
-  Serial.println(c);
-  return c;
-  delay(1000);
-}
-double getCA() {
-  int count = 200;
-  double sum = 0;
-  for (int i = 0; i < count; i++) {
-    sum += getC();
-  }
-  double val = sum / count;
-  return val;
-}
-// อ่านค่ากระแส
-double getC() {
-  int a = analogRead(A0);
-  double v = (a / 1024.0) * 5000;
-  double c = (v - offset) / sensitive;
-  return c;
+float sensorvolt(){
+float temp;
+
+val11=analogRead(A0);
+
+temp=val11/4.092;
+
+val11=(int)temp;
+
+val2=((val11%100)/10.0);
+
+return val2;
+
+delay(1000);
 }
 
 float DHThum() {
@@ -53,7 +46,7 @@ int Ultrasonic() {
  
   float sum = map(cm, 0, 32, 16, 0);
   if( sum < 0 ) sum = 0;
-  if( sum > 16 ) sum = 16;
+ 
   Serial.print(sum);
   
   Serial.println();

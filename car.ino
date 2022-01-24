@@ -1,4 +1,4 @@
-/*  NETPIE ESP8266 basic sample                            */
+/*  NETPIE ESP8266 basic svoltle                            */
 /*  More information visit : https://netpie.io             */
 
 #include <ESP8266WiFi.h>
@@ -43,7 +43,9 @@ unsigned long delayTime;
 
 const int pingPin = D8;
 int inPin = D7;
+int val11;
 
+float val2;
 int Motor1  = D1;
 int Motor2  = D2;
 int Motor3  = D3;
@@ -120,7 +122,7 @@ void setup() {
 void loop() {
   /* To check if the microgear is still connected */
   float li =  Ultrasonic();
-  float Amp = sensorAmp();
+  float volt = sensorvolt();
   float hum =  DHThum();
   unsigned long currentMillis = millis();
 
@@ -149,7 +151,7 @@ if(digitalWrite(interruptPin)==1){
     if (timer >= 5000) {
       String all = "" ;
       
-        all += (String)hum +"," +Amp+"," +rpm+"," +li;
+        all += (String)hum +"," +volt+"," +rpm+"," +li;
       
 
       microgear.publish("/RobotCar/all" , all);
