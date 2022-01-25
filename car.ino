@@ -59,21 +59,7 @@ void onMsghandler(char *topic, uint8_t* msg, unsigned int msglen) {
   Serial.print(top);
   Serial.print(" ");
   Serial.println(message);
-  if (top == "/RobotCarEEE/RobotCar/car") {
-    if (message == "forward") {
-      forward();
-    } else if (message == "reward") {
-      reward();
-    } else if (message == "left") {
-      left();
-    } else if (message == "right") {
-      right();
-    } else if (message == "stop") {
-      stop();
-    } else {
-      stop();
-    }
-  }
+ 
 
 }
 
